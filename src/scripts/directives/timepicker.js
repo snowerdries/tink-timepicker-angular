@@ -9,12 +9,14 @@
   return{
     restrict:'AE',
     //template:'<div style="background:white;"><span style="float:left;">--</span><div style="float:left;">:</div><span>--</span></div>',
-        template:'<div class="timepicker"><input type="text" ng-model="ngModel"/><span class="timepicker-later" role="spinbutton"></span><span class="timepicker-earlier" role="spinbutton"></span><button class="upload-btn-delete" data-ng-if="ngModel" data-ng-click="setNull()"><span class="sr-only">Leegmaken</span></button></div>',
+        template:'<div class="timepicker"><input type="text" ng-model="ngModel"/><span class="timepicker-later" role="spinbutton"></span><span class="timepicker-earlier" role="spinbutton"></span><button class="upload-btn-delete" data-ng-if="ngModel  && allowClear" data-ng-click="setNull()"><span class="sr-only">Leegmaken</span></button></div>',
     // template:'<div class="timepicker"><input type="text" ng-model="ngModel"/><span class="timepicker-later" role="spinbutton"></span><span class="timepicker-earlier" role="spinbutton"></span><button class="btn-transparent btn-delete" data-ng-click="setNull()"><span class="sr-only">Leegmaken</span></button></div>',
     require:'ngModel',
     replace:false,
     scope:{
-      ngModel:'='
+      ngModel:'=',
+      minDate: '=?',
+      allowClear:'=?'
     },
     link:function(scope,elem,attr,ngModel){
       var current = {hour:{num:0,reset:true,prev:-1,start:true},min:{num:0,reset:true,start:true}};
@@ -257,6 +259,16 @@
           }else if(select === 2){
             selectMinute();
           }
+
+        if (scope.minDate && scope.minDate.getFullYear && scope.minDate.getMonth && scope.minDate.getDate) {
+            var inputDate = new Date(scope.ngModel.getFullYear(), scope.ngModel.getMonth(), scope.ngModel.getDate(), current.hour.num, current.min.num);
+            var mindate = new Date(scope.minDate.getFullYear(), scope.minDate.getMonth(), scope.minDate.getDate(), scope.minDate.getHours(), scope.minDate.getMinutes());
+            if (inputDate < new Date(mindate)) {
+                ngModel.$setValidity('min', false);
+            } else {
+                ngModel.$setValidity('min', true);
+            }
+        }
 
         if(!current.hour.start && !current.min.start){
           ngModel.$setValidity('time', true);

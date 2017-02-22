@@ -1,6 +1,6 @@
 # Tink timepicker Angular directive
 
-v1.1.0
+v1.2.0
 
 ## What is this repository for?
 
