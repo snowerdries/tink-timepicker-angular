@@ -9,7 +9,7 @@
   return{
     restrict:'AE',
     //template:'<div style="background:white;"><span style="float:left;">--</span><div style="float:left;">:</div><span>--</span></div>',
-        template:'<div class="timepicker"><input type="text" ng-model="ngModel"/><span class="timepicker-later" role="spinbutton"></span><span class="timepicker-earlier" role="spinbutton"></span><button class="upload-btn-delete" data-ng-if="ngModel  && allowClear" data-ng-click="setNull()"><span class="sr-only">Leegmaken</span></button></div>',
+    template: '<div class="timepicker"><input type="text" ng-model="ngModel"/><span class="timepicker-later" role="spinbutton"></span><span class="timepicker-earlier" role="spinbutton"></span><button class="upload-btn-delete" data-ng-if="ngModel && allowClear" data-ng-click="setNull()"><span class="sr-only">Leegmaken</span></button></div>',
     // template:'<div class="timepicker"><input type="text" ng-model="ngModel"/><span class="timepicker-later" role="spinbutton"></span><span class="timepicker-earlier" role="spinbutton"></span><button class="btn-transparent btn-delete" data-ng-click="setNull()"><span class="sr-only">Leegmaken</span></button></div>',
     require:'ngModel',
     replace:false,
@@ -269,12 +269,6 @@
                 ngModel.$setValidity('min', true);
             }
         }
-
-        if(!current.hour.start && !current.min.start){
-          ngModel.$setValidity('time', true);
-        }else{
-          ngModel.$setValidity('time', false);
-        }
       };
 
       var handleMinute = function(key){
@@ -497,4 +491,4 @@
     }
   };
 }]);
-})();
+})();;
